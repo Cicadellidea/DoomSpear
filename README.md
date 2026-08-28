@@ -28,3 +28,5 @@ Pressing Slam key or Dash key to stop hooking at any time.
 （任意时刻）按下冲刺/猛击按钮可以脱离肉钩状态
 
 建议配合枪械模组。
+
+哦对了，将通过肉钩靠近敌人的时候会造成伤害，并处决生命<1/3且处于眩晕的敌人。英文不会说，就这样了。
