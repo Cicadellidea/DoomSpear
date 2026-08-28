@@ -1,7 +1,35 @@
-/run-data/
-/run/
-/gradle/
-/.idea/
-/build/
-/.gradle/
-/src/generated/resources/.cache/
+# === Gradle ===
+.gradle/
+build/
+out/
+src/generated/
+remappedSrc/
+gradle-app.setting
+
+# === Minecraft 运行目录（最重要！绝对不要提交run）===
+run/
+
+# === IDEA (你用IDEA开发) ===
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# === Eclipse (不用可以删掉) ===
+eclipse/
+bin/
+*.launch
+.classpath
+.project
+
+# === VS Code ===
+.vscode/
+
+# === 系统垃圾文件 ===
+.DS_Store
+Thumbs.db
+
+# === 密钥、私有配置 ===
+local.properties
+*.properties
+modrinth_key.properties
