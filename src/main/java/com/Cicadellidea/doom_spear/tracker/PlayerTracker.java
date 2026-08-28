@@ -73,9 +73,8 @@ public class PlayerTracker {
                     playerData.reCharge();
                     DoomSpear.CHANNEL.sendTo(new SyncPlayerChargePacket(playerData.getSpearCharge()),player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
 //                    player.sendSystemMessage(Component.literal("sent"));
-                    event.cancel();
+                    event.setCanceled(true);
                 }
-
             }
         }
 
