@@ -27,3 +27,4 @@ Pressing Slam key or Dash key to stop hooking at any time.
 
 （任意时刻）按下冲刺/猛击按钮可以脱离肉钩状态
 
+建议配合枪械模组。
