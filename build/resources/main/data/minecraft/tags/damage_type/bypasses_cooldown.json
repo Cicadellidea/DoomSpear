@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "doom_spear:bullet_damage",
+    "doom_spear:spear_damage"
+  ]
+}
