@@ -13,7 +13,7 @@ If you have Charge:
 Press Sweep key to deal hight damage to enermies in front of you.
 Press Slam key when hooking to fall down and stun enermies.
 
-Pressing Slam key or Dash key to stop hooking.
+Pressing Slam key or Dash key to stop hooking at any time.
 
 手持锁链长矛时：
 按下肉钩键（建议改成鼠标右键）射出肉钩。
