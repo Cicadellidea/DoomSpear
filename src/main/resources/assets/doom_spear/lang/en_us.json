@@ -1,0 +1,14 @@
+{
+  "category.doom_spear": "Doom's Spear",
+  "key.doom_spear.dash": "Dash",
+  "key.doom_spear.slam": "slam",
+  "key.doom_spear.sweep": "sweep",
+  "key.doom_spear.hook": "hook",
+  "tab.doom_spear": "Doom's Spear",
+  "item.doom_spear.chain_spear": "Chain Spear",
+  "item.doom_spear.ravager": "Ravager",
+  "death.attack.bullet_damage": "%1$s is killed by bullet",
+  "death.attack.bullet_damage.player": "%1$s is killed by %2$s with bullet",
+  "death.attack.spear_damage": "%1$s is teared",
+  "death.attack.spear_damage.player": "%1$s is teared by %2$s "
+}
