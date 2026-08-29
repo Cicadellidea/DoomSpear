@@ -57,7 +57,7 @@ public class DoomSpear {
         MinecraftForge.EVENT_BUS.register(new ClientInputReader());
         MinecraftForge.EVENT_BUS.register(new WeaponEventHandler());
 //        MinecraftForge.EVENT_BUS.register(new GoalHandler());
-        MinecraftForge.EVENT_BUS.register(new EntityStunHandler());
+//        MinecraftForge.EVENT_BUS.register(new EntityStunHandler());
         MinecraftForge.EVENT_BUS.register(new PlayerTracker());
         MinecraftForge.EVENT_BUS.register(new PlayerTracker());
 

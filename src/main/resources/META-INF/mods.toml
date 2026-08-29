@@ -63,5 +63,5 @@ versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
-#[[mixins]]
-#config = "doomspear.mixin.json"
+[[mixins]]
+config = "doom_spear.mixin.json"

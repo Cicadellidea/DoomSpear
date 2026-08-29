@@ -37,7 +37,7 @@ public class RavagerBullet extends AbstractArrow {
     public RavagerBullet(Player pPlayer, Level pLevel) {
         this(RAVAGER_BULLET.get(), pLevel);
         this.setOwner(pPlayer);
-        float rh = 20;
+        float rh = 10;
         float rv = 5;
         float f = (float) (pPlayer.getXRot()+1-rv+2*rv*ThreadLocalRandom.current().nextDouble());
         float f1 = (float) (pPlayer.getYRot()-rh+2*rh*ThreadLocalRandom.current().nextDouble());

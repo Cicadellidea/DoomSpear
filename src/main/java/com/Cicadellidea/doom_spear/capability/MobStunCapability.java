@@ -30,4 +30,10 @@ public class MobStunCapability {
     public void  setNoAi(boolean noAi){
         this.noAi = noAi;
     }
+
+    public void countDown(){
+        if (this.stunTime>0){
+            this.stunTime -= 1;
+        }
+    }
 }

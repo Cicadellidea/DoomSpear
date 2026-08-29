@@ -3,11 +3,20 @@ package com.Cicadellidea.doom_spear.lib;
 import com.Cicadellidea.doom_spear.capability.MobStunCapability;
 import com.Cicadellidea.doom_spear.capability.MobStunCapabilityProvider;
 import com.Cicadellidea.doom_spear.item.ChainSpearItem;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.Brain;
+import net.minecraft.world.entity.ai.behavior.BehaviorControl;
+import net.minecraft.world.entity.ai.goal.WrappedGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
+
+import java.util.Iterator;
 
 public class FunctionLib {
     public static boolean hasChainSpear(Player player){
@@ -42,13 +51,12 @@ public class FunctionLib {
             }
         }
         else {
+            Brain<?> brain = mob.getBrain();
+            brain.eraseMemory(MemoryModuleType.ATTACK_TARGET);
             mobStunData.setStunTime(time);
-            mobStunData.setNoAi(mob.isNoAi());
-            mob.setNoAi(true);
             mob.setDeltaMovement(Vec3.ZERO);
             mob.hurtMarked = true;
-//            mob.goalSelector.getRunningGoals().forEach(WrappedGoal::stop);
-
+            mob.goalSelector.getRunningGoals().forEach(WrappedGoal::stop);
         }
 //        if (time >10){
 ////            DoomSpear.CHANNEL.sendTo(new EntitySyncPacket(mob.getId(),time),player.connection.connection, NetworkDirection.PLAY_TO_CLIENT);
@@ -67,13 +75,23 @@ public class FunctionLib {
                 mobStunData.setStunTime(-1);
                 mob.setNoAi(mobStunData.isNoAi());
                 mob.setLastHurtByPlayer(player);
-                mob.setHealth(0.1f);
-                mob.hurt(source,1000);
+                mob.setHealth(0.0f);
+                mob.hurt(source,20);
 
 
 //                mob.kill();
             }
         };
 
+    }
+
+    public static boolean shouldHurt(Entity entity, Player player){
+        if (entity.getType().getCategory().isFriendly()){
+            return false;
+        }
+        if (entity instanceof Player victim){
+            if (!player.canHarmPlayer(victim)){return false;}
+        }
+        return true;
     }
 }

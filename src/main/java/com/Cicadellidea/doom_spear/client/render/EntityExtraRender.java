@@ -29,7 +29,7 @@ public class EntityExtraRender {
     @SubscribeEvent
     public static void onRenderLivingPost(RenderLivingEvent.Post<LivingEntity, ?> event) {
         Minecraft mc = Minecraft.getInstance();
-        long gameTime;
+        long gameTime = 0;
         LivingEntity entity = event.getEntity();
         try (var level = entity.level()) {
             gameTime = level.getGameTime();
@@ -55,29 +55,27 @@ public class EntityExtraRender {
 
         if (entity instanceof Mob mob){
             if (!entity.isRemoved()){
-                MobStunCapability mobStunData;
-                try {
-                    mobStunData = mob.getCapability(MobStunCapabilityProvider.MOB_STUN_DATA).orElseThrow(RuntimeException::new);
-                }
-                catch (Exception e){
-                    return;
-                }
-                var time = mobStunData.getStunTime();
-                if (time>10){
-                    Dizzy dizzyModel = new Dizzy(ClientModelCache.DIZZY_ROOT);
+                long finalGameTime = gameTime;
+                mob.getCapability(MobStunCapabilityProvider.MOB_STUN_DATA).ifPresent(data ->
+                {
+                    var time = data.getStunTime();
+                    if (time>10){
+                        Dizzy dizzyModel = new Dizzy(ClientModelCache.DIZZY_ROOT);
 
-                    poseStack.pushPose();
-                    {
-                        // Y偏移移动到生物头顶
-                        poseStack.translate(0.0D, entity.getBbHeight()-1, 0.0D);
-                        poseStack.mulPose(Axis.YP.rotationDegrees((gameTime*4)%360));
+                        poseStack.pushPose();
+                        {
+                            // Y偏移移动到生物头顶
+                            poseStack.translate(0.0D, entity.getBbHeight()-1, 0.0D);
+                            poseStack.mulPose(Axis.YP.rotationDegrees((finalGameTime *4)%360));
 
-                        var vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(DIZZY_TEXTURE));
-                        dizzyModel.renderToBuffer(poseStack, vertexConsumer, FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                            var vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(DIZZY_TEXTURE));
+                            dizzyModel.renderToBuffer(poseStack, vertexConsumer, FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 
+                        }
+                        poseStack.popPose();
                     }
-                    poseStack.popPose();
-                }
+                });
+
             }
         }
     }

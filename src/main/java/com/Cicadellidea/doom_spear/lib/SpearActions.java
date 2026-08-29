@@ -49,12 +49,7 @@ public class SpearActions {
         AtomicBoolean success = new AtomicBoolean(false);
 
         level.getEntitiesOfClass(LivingEntity.class, aabb, e -> e != player).forEach(target -> {
-            if (target instanceof Animal || target instanceof Npc){
-                return;
-            }
-            if (target instanceof Player victim){
-                if (!player.canHarmPlayer(victim)){return;}
-            }
+            if (!FunctionLib.shouldHurt(target,player)){return;}
 
             Vec3 toTarget = target.position().subtract(eyePos).multiply(1,0,1).normalize();
             double dot = lookVec.dot(toTarget);
@@ -133,12 +128,7 @@ public class SpearActions {
         AtomicBoolean success = new AtomicBoolean(false);
 
         level.getEntitiesOfClass(LivingEntity.class, aabb, e -> e != player).forEach(target -> {
-            if (target instanceof Animal || target instanceof Npc){
-                return;
-            }
-            if (target instanceof Player victim){
-                if (!player.canHarmPlayer(victim)){return;}
-            }
+            if (!FunctionLib.shouldHurt(target,player)){return;}
 
             double dist = target.position().subtract(eyePos).horizontalDistance();
             var hsize = (target.getBoundingBox().getXsize()+target.getBoundingBox().getZsize())/2;
