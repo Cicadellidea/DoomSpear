@@ -178,7 +178,7 @@ public class SpearHook extends AbstractArrow {
                                 return;
                             }
                             if (deltaPos.y * vMove<-5){
-                                vVector=vVector.multiply(1,0,1);
+                                vVector=vVector.multiply(1,0.1,1).normalize().scale(spd);
                             }
 //                        moveCompensate = moveCompensate.add(new Vec3(lookVector.x,0,lookVector.z).normalize().scale(playerSpeed)).scale(vMove);
 
@@ -247,14 +247,14 @@ public class SpearHook extends AbstractArrow {
                         if (player.input.right){
                             lrState -= 1;
                         }
-                        var err = Mth.wrapDegrees((yaw-actualYaw-ViewSmoother.angularVelocity*lrState))*lrState;
+                        var err = Mth.wrapDegrees((yaw-actualYaw-ViewSmoother.angularVelocity*lrState*1F))*lrState;
                         var d = err - ViewSmoother.prevErr;
                         var i = ViewSmoother.integalErr;
                         ViewSmoother.integalErr += err;
                         ViewSmoother.prevErr = err;
-                        var kp = 0.3;
+                        var kp = 0.5;
                         var kd = -0.1;
-                        var ki = 0.01;
+                        var ki = 0.1;
 
 //                        ViewSmoother.angularVelocity += (float) (err*kp+d*kd+i*ki);
                         ViewSmoother.angularVelocity = 7.1f+(float) (err*kp+d*kd+i*ki);

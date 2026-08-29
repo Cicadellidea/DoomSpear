@@ -6,8 +6,8 @@ import java.util.UUID;
 public class PlayerExtraDataImpl {
     private static final int MAX_DASH_CHARGE = 80;
     private static final int SINGLE_DASH_CHARGE = 40;
-    private static final int SINGLE_SPEAR_CHARGE = 200;
-    private static final int MAX_SPEAR_CHARGE = 600;
+    private static final int SINGLE_SPEAR_CHARGE = 600;
+    private static final int MAX_SPEAR_CHARGE = 1800;
 
     private static final int DASH_IMMUNE_TIME = 15;
 
