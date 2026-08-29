@@ -40,7 +40,7 @@ public class SpearHook extends AbstractArrow {
     private int life;
     @Nullable
     private Entity hookedIn;
-    public static float speed = 2;
+    public static float speed = 8;
 //    private int lastForward = 0;
 //    private int lastLrstate = 0;
 
