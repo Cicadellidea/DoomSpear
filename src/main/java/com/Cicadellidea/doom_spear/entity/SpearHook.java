@@ -40,6 +40,7 @@ public class SpearHook extends AbstractArrow {
     private int life;
     @Nullable
     private Entity hookedIn;
+    public static float speed = 2;
 //    private int lastForward = 0;
 //    private int lastLrstate = 0;
 
@@ -67,7 +68,7 @@ public class SpearHook extends AbstractArrow {
         this.moveTo(d0, d1, d2, f1, f);
         Vec3 vec3 = new Vec3((double)(-f3), (double)Mth.clamp(-(f5 / f4), -5.0F, 5.0F), (double)(-f2));
         double d3 = vec3.length();
-        var speed = 2;
+//        var speed = 5;
         vec3 = vec3.multiply(speed / d3 , speed / d3 , speed / d3 );
         this.setDeltaMovement(vec3);
         this.setYRot((float)(Mth.atan2(vec3.x, vec3.z) * 57.2957763671875));

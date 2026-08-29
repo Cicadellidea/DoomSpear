@@ -19,13 +19,13 @@ public class ModEntity {
     public static final RegistryObject<EntityType<SpearHook>>  SPEAR_HOOK =
             ENTITIES.register("spear_hook",
                     () -> EntityType.Builder.<SpearHook>of(SpearHook::new, MobCategory.MISC)
-            .sized(0.25F, 0.25F)
+            .sized(0.5F, 0.5F)
             .build(MODID + ":spear_hook"));
 
     public static final RegistryObject<EntityType<RavagerBullet>>  RAVAGER_BULLET =
             ENTITIES.register("ravager_bullet",
                     () -> EntityType.Builder.<RavagerBullet>of(RavagerBullet::new, MobCategory.MISC)
-                            .sized(0.1F, 0.1F)
+                            .sized(0.25F, 0.25F)
                             .build(MODID + "ravager_bullet"));
     public static void register(IEventBus eventBus) {
         ENTITIES.register(eventBus);
