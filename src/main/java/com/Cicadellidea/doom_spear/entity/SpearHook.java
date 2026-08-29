@@ -248,7 +248,7 @@ public class SpearHook extends AbstractArrow {
                         if (player.input.right){
                             lrState -= 1;
                         }
-                        var err = Mth.wrapDegrees((yaw-actualYaw-ViewSmoother.angularVelocity*lrState*1F))*lrState;
+                        var err = Mth.wrapDegrees((yaw-actualYaw-ViewSmoother.angularVelocity*lrState*0F))*lrState;
                         var d = err - ViewSmoother.prevErr;
                         var i = ViewSmoother.integalErr;
                         ViewSmoother.integalErr += err;
