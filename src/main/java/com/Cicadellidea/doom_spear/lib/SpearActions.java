@@ -10,6 +10,8 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.npc.Npc;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -47,6 +49,13 @@ public class SpearActions {
         AtomicBoolean success = new AtomicBoolean(false);
 
         level.getEntitiesOfClass(LivingEntity.class, aabb, e -> e != player).forEach(target -> {
+            if (target instanceof Animal || target instanceof Npc){
+                return;
+            }
+            if (target instanceof Player victim){
+                if (!player.canHarmPlayer(victim)){return;}
+            }
+
             Vec3 toTarget = target.position().subtract(eyePos).multiply(1,0,1).normalize();
             double dot = lookVec.dot(toTarget);
             double dist = target.position().subtract(eyePos).horizontalDistance();
@@ -124,6 +133,12 @@ public class SpearActions {
         AtomicBoolean success = new AtomicBoolean(false);
 
         level.getEntitiesOfClass(LivingEntity.class, aabb, e -> e != player).forEach(target -> {
+            if (target instanceof Animal || target instanceof Npc){
+                return;
+            }
+            if (target instanceof Player victim){
+                if (!player.canHarmPlayer(victim)){return;}
+            }
 
             double dist = target.position().subtract(eyePos).horizontalDistance();
             var hsize = (target.getBoundingBox().getXsize()+target.getBoundingBox().getZsize())/2;
