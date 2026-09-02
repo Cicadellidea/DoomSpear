@@ -71,7 +71,7 @@ public class SpearActions {
 //                }
                 target.hurt(source, dmg+SWEEP_BASE_DMG);
                 if (target instanceof Mob mob) {
-                    FunctionLib.stunMob(mob,5);
+                    FunctionLib.stunMob(mob,20);
                     success.set(true);
                 }
             }

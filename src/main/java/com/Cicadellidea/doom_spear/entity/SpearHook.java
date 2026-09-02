@@ -41,6 +41,7 @@ public class SpearHook extends AbstractArrow {
     @Nullable
     private Entity hookedIn;
     public static float speed = 8;
+    public static double spd = 1;
 //    private int lastForward = 0;
 //    private int lastLrstate = 0;
 
@@ -132,7 +133,7 @@ public class SpearHook extends AbstractArrow {
                     int vMove = playerData.getForward();
                     Vec3 lookVector = player.getViewVector(1F);
 
-                    double spd = 1;
+//                    double spd = 1;
                     if(this.hookedIn != null) {
                         if(this.hookedIn instanceof Mob mob) {
                             if (!this.hookedIn.isRemoved()){
@@ -169,18 +170,41 @@ public class SpearHook extends AbstractArrow {
                             var propZ = deltaPos.z / deltaH;
                             var deltaV = deltaPos.y;
 
-
-                            if(deltaH > 0.5 || deltaPos.y * vMove > 0) {
-                                vVector = new Vec3(-deltaV * propX * vMove, deltaH * vMove * 0.5, -deltaV * propZ * vMove).normalize().scale(spd);
-
-                            } else {
-                                vVector = new Vec3(lookVector.x, 0, lookVector.z).normalize().scale(0.3).add(0, 0.05, 0);
-                                this.retrive();
-                                return;
+                            if (deltaPos.y * vMove < 0){
+                                if (deltaH < 0.5){
+                                    this.retrive();
+                                    return;
+                                }
+                                else {
+                                    vVector = new Vec3(-deltaV * propX * vMove, deltaH * vMove * 0.5, -deltaV * propZ * vMove).normalize().scale(spd);
+                                    if (deltaPos.y * vMove<-5){
+                                        vVector=vVector.multiply(1,0.1,1).normalize().scale(spd);
+                                    }
+                                }
                             }
-                            if (deltaPos.y * vMove<-5){
-                                vVector=vVector.multiply(1,0.1,1).normalize().scale(spd);
+                            else {
+                                if (deltaH > 3){
+                                    vVector = deltaPos.normalize().add(0,0.2,0).scale(spd);
+                                }
+                                else {
+                                    vVector = new Vec3(-deltaV * propX * vMove, deltaH * vMove * 0.5, -deltaV * propZ * vMove).normalize().scale(spd);
+                                }
+
                             }
+
+
+//                            if(deltaH > 0.5 || deltaPos.y * vMove > 0) {
+//                                vVector = new Vec3(-deltaV * propX * vMove, deltaH * vMove * 0.5, -deltaV * propZ * vMove).normalize().scale(spd);
+//
+//                            } else {
+//                                vVector = new Vec3(lookVector.x, 0, lookVector.z).normalize().scale(0.3).add(0, 0.05, 0);
+//                                this.retrive();
+//                                return;
+//                            }
+//                            if (deltaPos.y * vMove<-5){
+//                                vVector=vVector.multiply(1,0.1,1).normalize().scale(spd);
+//                            }
+
 //                        moveCompensate = moveCompensate.add(new Vec3(lookVector.x,0,lookVector.z).normalize().scale(playerSpeed)).scale(vMove);
 
                         }
@@ -258,7 +282,7 @@ public class SpearHook extends AbstractArrow {
                         var ki = 0.1;
 
 //                        ViewSmoother.angularVelocity += (float) (err*kp+d*kd+i*ki);
-                        ViewSmoother.angularVelocity = 7.1f+(float) (err*kp+d*kd+i*ki);
+                        ViewSmoother.angularVelocity = (float) (err*kp+d*kd+i*ki);
 //                        player.sendSystemMessage(Component.literal(String.valueOf(ViewSmoother.angularVelocity)));
 //                        ViewSmoother.targetXRot = pitch;
 //                        var prevYRot = ViewSmoother.targetYRot;
@@ -288,6 +312,9 @@ public class SpearHook extends AbstractArrow {
                     target.setLastHurtByPlayer(player);
                     DamageSource source = player.damageSources().playerAttack(player);
                     this.hookedIn.hurt(source,6);
+                    player.getCapability(PlayerExtraDataProvider.PLAYER_EXTRA_DATA).ifPresent(data -> {
+                        data.setActionImmune(10);
+                    });
 
                     if (target instanceof Mob mob){
 //                        if (!this.hookedIn.isRemoved()){
@@ -298,17 +325,22 @@ public class SpearHook extends AbstractArrow {
 //                        player.sendSystemMessage(Component.literal(String.valueOf(this.distanceTo(player))));
 
                         FunctionLib.execution(mob,player);
-                        FunctionLib.stunMob(mob,5);
+//                        FunctionLib.stunMob(mob,5);
 
                     }
                 }
             }
         }
         else {
-            player.setDeltaMovement(player.getDeltaMovement().scale(0.3));
-            if (this.position().y>player.position().y+1){
+            if (this.position().y>player.position().y+0.5){
+                player.setDeltaMovement(player.getDeltaMovement().multiply(0.2,0.1,0.2));
                 player.setDeltaMovement(player.getDeltaMovement().add(0,0.8,0));
             }
+            else {
+                player.setDeltaMovement(player.getDeltaMovement().scale(0.5));
+
+            }
+
         }
         player.hurtMarked = true;
 

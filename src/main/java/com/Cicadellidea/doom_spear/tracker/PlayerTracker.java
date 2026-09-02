@@ -75,6 +75,10 @@ public class PlayerTracker {
 //                    player.sendSystemMessage(Component.literal("sent"));
                     event.setCanceled(true);
                 }
+                if (playerData.getActionImmune()>0){
+                    event.setCanceled(true);
+
+                }
             }
         }
 
