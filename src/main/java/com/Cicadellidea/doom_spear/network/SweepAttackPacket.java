@@ -43,6 +43,7 @@ public class SweepAttackPacket {
 //                return;
 //            }
             if (playerData.isCharged()){
+                playerData.setActionImmune(20);
                 if (SpearActions.doSweeping(player)){
                     playerData.consumeCharge();
 //                    var level = player.level();

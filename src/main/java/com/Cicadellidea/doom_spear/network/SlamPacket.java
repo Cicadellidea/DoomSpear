@@ -36,6 +36,7 @@ public class SlamPacket {
             if (playerData.isHooking()){
                 playerData.setHooking(false);
                 if (playerData.isCharged()){
+                    playerData.setActionImmune(20);
                     if (playerData.isFalling()){
                         playerData.setFalling(false);
                     }

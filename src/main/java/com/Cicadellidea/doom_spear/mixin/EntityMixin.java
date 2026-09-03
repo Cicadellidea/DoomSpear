@@ -2,6 +2,7 @@ package com.Cicadellidea.doom_spear.mixin;
 
 import com.Cicadellidea.doom_spear.capability.MobStunCapabilityProvider;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.FlyingMob;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -58,7 +59,7 @@ public abstract class EntityMixin {
             mob.getCapability(MobStunCapabilityProvider.MOB_STUN_DATA).ifPresent(data ->
             {
                 data.countDown();
-                if (data.getStunTime()>0){
+                if (data.getStunTime()>0 && !(mob instanceof FlyingMob)){
                     AttributeInstance gravity = mob.getAttribute((Attribute) ForgeMod.ENTITY_GRAVITY.get());
                     double d0 = gravity.getValue();
                     var spd0 = mob.getDeltaMovement();

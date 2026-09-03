@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
@@ -65,8 +66,10 @@ public class EntityExtraRender {
                         poseStack.pushPose();
                         {
                             // Y偏移移动到生物头顶
-                            poseStack.translate(0.0D, entity.getBbHeight()-1, 0.0D);
+                            poseStack.translate(0.0D, entity.getBoundingBox().getYsize()/2, 0.0D);
                             poseStack.mulPose(Axis.YP.rotationDegrees((finalGameTime *4)%360));
+                            var scaleParameter = (float) mob.getBoundingBox().getSize();
+                            poseStack.scale(scaleParameter,scaleParameter,scaleParameter);
 
                             var vertexConsumer = bufferSource.getBuffer(RenderType.entityCutout(DIZZY_TEXTURE));
                             dizzyModel.renderToBuffer(poseStack, vertexConsumer, FULL_BRIGHT, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
