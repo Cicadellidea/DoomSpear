@@ -3,7 +3,12 @@ package com.Cicadellidea.doom_spear.mixin;
 import com.Cicadellidea.doom_spear.capability.MobStunCapabilityProvider;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MoverType;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.common.ForgeMod;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -53,6 +58,15 @@ public abstract class EntityMixin {
             mob.getCapability(MobStunCapabilityProvider.MOB_STUN_DATA).ifPresent(data ->
             {
                 data.countDown();
+                if (data.getStunTime()>0){
+                    AttributeInstance gravity = mob.getAttribute((Attribute) ForgeMod.ENTITY_GRAVITY.get());
+                    double d0 = gravity.getValue();
+                    var spd0 = mob.getDeltaMovement();
+                    var spd1 = spd0.multiply(0.5,0.9,0.5).add(new Vec3(0,-d0,0));
+                    mob.setDeltaMovement(spd1);
+
+                    mob.move(MoverType.SELF,spd1);
+                }
             });
         }
 

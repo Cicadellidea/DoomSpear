@@ -183,8 +183,8 @@ public class SpearHook extends AbstractArrow {
                                 }
                             }
                             else {
-                                if (deltaH > 3){
-                                    vVector = deltaPos.normalize().add(0,0.2,0).scale(spd);
+                                if (deltaH > 4){
+                                    vVector = deltaPos.normalize().add(0,0.5,0).scale(spd);
                                 }
                                 else {
                                     vVector = new Vec3(-deltaV * propX * vMove, deltaH * vMove * 0.5, -deltaV * propZ * vMove).normalize().scale(spd);
