@@ -2,6 +2,7 @@ package com.Cicadellidea.doom_spear.lib;
 
 import com.Cicadellidea.doom_spear.capability.MobStunCapability;
 import com.Cicadellidea.doom_spear.capability.MobStunCapabilityProvider;
+import com.Cicadellidea.doom_spear.init.ModDamageTypes;
 import com.Cicadellidea.doom_spear.item.ChainSpearItem;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
@@ -14,9 +15,12 @@ import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Iterator;
+
+import static com.Cicadellidea.doom_spear.init.ModDamageTypes.createCustomDamage;
 
 public class FunctionLib {
     public static boolean hasChainSpear(Player player){
@@ -70,12 +74,13 @@ public class FunctionLib {
         var mobStunData = mob.getCapability(MobStunCapabilityProvider.MOB_STUN_DATA).orElseThrow(RuntimeException::new);
         if(mobStunData.getStunTime()>5){
             if (mob.getHealth()*3<mob.getMaxHealth()){
-                DamageSource source = player.damageSources().playerAttack(player);
+                Level level = mob.level();
+                DamageSource source = createCustomDamage(level, ModDamageTypes.SPEAR_DAMAGE, null, player);
 //                DamageSource suource = DamageTypes.PLAYER_ATTACK;
                 mobStunData.setStunTime(-1);
-                mob.setNoAi(mobStunData.isNoAi());
+//                mob.setNoAi(mobStunData.isNoAi());
                 mob.setLastHurtByPlayer(player);
-                mob.setHealth(0.0f);
+                mob.setHealth(1e-5f);
                 mob.hurt(source,20);
 
 
